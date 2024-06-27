@@ -35,9 +35,12 @@ function recvMessage(websocket, messageDisplay, joinLink) {
 function sendMessage(websocket, messageForm, messageText) {
   messageForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const event = { type: "message", message: messageText.value };
-    websocket.send(JSON.stringify(event));
-    messageText.value = "";
+    messageText.value = messageText.value.trim();
+    if (messageText.value) {
+      const event = { type: "message", message: messageText.value };
+      websocket.send(JSON.stringify(event));
+      messageText.value = "";
+    }
   });
 }
 
