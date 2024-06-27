@@ -20,7 +20,7 @@ function recvMessage(websocket, messageDisplay, joinLink) {
     const event = JSON.parse(data);
     switch (event.type) {
       case "init":
-        joinLink.innerHTML = event.join;
+        joinLink.innerHTML = `Copy link / Share: ${event.join}`;
         joinLink.href = "?join=" + event.join;
         break;
       case "message":
