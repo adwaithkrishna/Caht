@@ -1,3 +1,17 @@
+function getWebSocketServer() {
+  if (window.location.hostname === "adwaithkrishna.github.io") {
+    return "wss://caht-se9v.onrender.com";
+  } else if (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.hostname === ""
+  ) {
+    return "ws://localhost:8001";
+  } else {
+    throw new Error(`Unsupported host: ${window.location.host}`);
+  }
+}
+
 function init(websocket, statusDisplay) {
   websocket.addEventListener("open", () => {
     statusDisplay.innerHTML = "Caht connected";
@@ -45,7 +59,7 @@ function sendMessage(websocket, messageForm, messageText) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  const websocket = new WebSocket("ws://localhost:8001");
+  const websocket = new WebSocket(getWebSocketServer());
   const statusDisplay = document.getElementById("status");
   const messageDisplay = document.getElementById("message-container");
   const messageForm = document.getElementById("send-message-form");
